@@ -154,7 +154,9 @@ def update_slack_group(group_id, user_ids):
         "include_count": True
     }
 
-    req = requests.post(SLACK_USERGROUPS_ENDPOINT + ".users.update", json=payload, headers=get_base_slack_headers())
+    req_headers = get_base_slack_headers()
+    req_headers["Content-Type"] = "application/json; charset=utf-8"
+    req = requests.post(SLACK_USERGROUPS_ENDPOINT + ".users.update", json=payload, headers=req_headers)
 
     if 200 <= req.status_code < 400:
         resp = req.json()
